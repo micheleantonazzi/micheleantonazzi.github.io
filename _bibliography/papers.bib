@@ -42,6 +42,19 @@ abstract = {This paper addresses the challenge of Non-Homogeneous Patrolling for
   doi={10.1109/TRO.2025.3613551},
   video = {privacy-weakloss-video.mp4},
   abstract={Cloud robotics allows low-power robots to perform computationally intensive inference tasks by offloading them to the cloud, raising privacy concerns when transmitting sensitive images. Although end-to-end encryption secures data in transit, it doesn't prevent misuse by inquisitive third-party services since data must be decrypted for processing. This paper tackles these privacy issues in cloud-based object detection tasks for service robots. We propose a co-trained encoder-decoder architecture that retains only task-specific features while obfuscating sensitive information, utilizing a novel weak loss mechanism with proposal selection for privacy preservation. A theoretical analysis of the problem is provided, along with an evaluation of the trade-off between detection accuracy and privacy preservation through extensive experiments on public datasets and a real robot.}}
+
+@article{antonazzi2025development,
+    abbr={JFR},
+    title={Development and Adaptation of Robotic Vision in the Real-World: the Challenge of Door Detection},
+    author={Antonazzi, Michele and Luperto, Matteo and Borghese, N. Alberto and Basilico, Nicola},
+    year={2025},
+    bibtex_show={true},
+    pdf={https://doi.org/10.1002/rob.70084},
+    website={https://aislab.di.unimi.it/research/doordetection/},
+    selected={true},
+    journal={Journal of Field Robotics},
+    abstract={Mobile service robots are increasingly prevalent in human-centric, real-world domains, operating autonomously in unconstrained indoor environments. In such a context, robotic vision plays a central role in enabling service robots to perceive high-level environmental features from visual observations. Despite the data-driven approaches based on deep learning push the boundaries of vision systems, applying these techniques to real-world robotic scenarios presents unique methodological challenges. Traditional models fail to represent the challenging perception constraints typical of service robots and must be adapted for the specific environment where robots finally operate. We propose a method leveraging photorealistic simulations that balances data quality and acquisition costs for synthesizing visual datasets from the robot perspective used to train deep architectures. Then, we show the benefits in qualifying a general detector for the target domain in which the robot is deployed, showing also the trade-off between the effort for obtaining new examples from such a setting and the performance gain. In our extensive experimental campaign, we focus on the door detection task (namely recognizing the presence and the traversability of doorways) that, in dynamic settings, is useful to infer the topology of the map. Our findings are validated in a real-world robot deployment, comparing prominent deep-learning models and demonstrating the effectiveness of our approach in practical settings.}
+}
 @article{luperto2025rendezvous,
 abbr={RAS},
 title = {Multi-robot rendezvous in communication-restricted unknown environments via backtracking and semantic frontier-based exploration},
@@ -101,18 +114,7 @@ abstract = {The multi-robot rendezvous problem requires coordinating a team of m
       abstract={Multi-robot rendezvous and exploration are fundamental challenges in the domain of mobile robotic systems. This paper addresses multi-robot rendezvous within an initially unknown environment where communication is only possible after the rendezvous. Traditionally, exploration has been focused on rapidly mapping the environment, often leading to suboptimal rendezvous performance in later stages. We adapt a standard frontier-based exploration technique to integrate exploration and rendezvous into a unified strategy, with a mechanism that allows robots to re-visit previously explored regions thus enhancing rendezvous opportunities. We validate our approach in 3D realistic simulations using ROS, showcasing its effectiveness in achieving faster rendezvous times compared to exploration strategies.},
 }
 
-@article{antonazzi2025development,
-  abbr={JFR},
-  title={Development and Adaptation of Robotic Vision in the Real-World: the Challenge of Door Detection},
-  author={Antonazzi, Michele and Luperto, Matteo and Borghese, N. Alberto and Basilico, Nicola},
-  year={2025},
-  bibtex_show={true},
-  pdf={https://doi.org/10.1002/rob.70084},
-  website={https://aislab.di.unimi.it/research/doordetection/},
-  selected={true},
-  journal={Journal of Field Robotics},
-  abstract={Mobile service robots are increasingly prevalent in human-centric, real-world domains, operating autonomously in unconstrained indoor environments. In such a context, robotic vision plays a central role in enabling service robots to perceive high-level environmental features from visual observations. Despite the data-driven approaches based on deep learning push the boundaries of vision systems, applying these techniques to real-world robotic scenarios presents unique methodological challenges. Traditional models fail to represent the challenging perception constraints typical of service robots and must be adapted for the specific environment where robots finally operate. We propose a method leveraging photorealistic simulations that balances data quality and acquisition costs for synthesizing visual datasets from the robot perspective used to train deep architectures. Then, we show the benefits in qualifying a general detector for the target domain in which the robot is deployed, showing also the trade-off between the effort for obtaining new examples from such a setting and the performance gain. In our extensive experimental campaign, we focus on the door detection task (namely recognizing the presence and the traversability of doorways) that, in dynamic settings, is useful to infer the topology of the map. Our findings are validated in a real-world robot deployment, comparing prominent deep-learning models and demonstrating the effectiveness of our approach in practical settings.}
-}
+
 @inproceedings{antonazzi2023enhancing,
   abbr={ECMR},
   title={Enhancing Door-Status Detection for Autonomous Mobile Robots during Environment-Specific Operational Use},
