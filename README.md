@@ -6,7 +6,7 @@
 
 For run locally install jekyll from this guide and run the command
 
-```bundle exec jekyll serve --lsi```
+```bundle exec jekyll serve --lsi --port 4001```
 **A simple, clean, and responsive [Jekyll](https://jekyllrb.com/) theme for academics.**
 
 ---
