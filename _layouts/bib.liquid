@@ -284,13 +284,19 @@
       </div>
     {% endif %}
 
-    {% if entry.video %}
-      <!-- Hidden video block -->
-      <div class="video hidden">
-          {% assign video_path = entry.video  | prepend: "/assets/video/"  %}
-        <div style="text-align: center;">{% include video.liquid path=video_path class="img-fluid rounded z-depth-1" controls=true %}</div>
 
-      </div>
+      {% if entry.video contains 'mp4'%}
+        <div class="video hidden">
+              {% assign video_path = entry.video  | prepend: "/assets/video/"  %}
+            <div style="text-align: center;">{% include video.liquid path=video_path class="img-fluid rounded z-depth-1" controls=true %}</div>
+
+          </div>
+          
+      {% else %}
+        <div class="video hidden">
+        <!-- Load video from youtube -->
+        <iframe style="aspect-ratio: 16/9; width: 100%;" src="https://www.youtube.com/embed/{{entry.video}}" frameborder="0" allow="muted;" allowfullscreen></iframe>
+        </div>
     {% endif %}
   </div>
 </div>

@@ -15,7 +15,7 @@ profile:
     <p><a href='https://www.kth.se/is/rpl'>Division of Robotics, Perception and Learning (RPL)</a></p>
     <p><a href='https://www.kth.se/en'>KTH Royal Institute of Technology</a></p>
 
-news: false # includes a list of news items
+news: true # includes a list of news items
 latest_posts: false # includes a list of the newest posts
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
