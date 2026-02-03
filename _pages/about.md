@@ -32,8 +32,9 @@ If you are interested in the following topics, for collaborations or theses, ple
 * Unsupervised domain adaptation for robotic perception 
 * Cloud-based robotic perception:
   * Unsupervised domain adaptation ([ICRA paper](https://https//doi.org/10.48550/arXiv.2602.01389))
-  * Scalability of domain adaptation ([IROS paper](https://doi.org/10.1109/IROS58592.2024.10802847))
   * Privacy preservation  ([TRO paper](https://doi.org/10.1109/TRO.2025.3613551))
+  * Scalability of domain adaptation ([IROS paper](https://doi.org/10.1109/IROS58592.2024.10802847))
+  
 
 <h4>Short bio</h4>
 I obtained my PhD in Computer Science in 2025 from the University of Milan, under the supervision of Prof. [Nicola Balisico](https://basilico.di.unimi.it/) and Dr. [Matteo Luperto](http://luperto.di.unimi.it/). During my doctoral studies, I addressed domain shift in real-world robotic vision. My research proposed novel domain adaptation methodologies for scalability and privacy preservation in cloud-based robotic perception, as well as unsupervised adaptation approaches for removing human supervision. During this period, I did a research visiting at the Robotics Lab of the Dalle Molle Institute for Artificial Intelligence (IDSIA), led by Prof. Alessandro Giusti, working on domain adaptation for nano-drones.
