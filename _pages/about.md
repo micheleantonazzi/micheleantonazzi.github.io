@@ -31,6 +31,7 @@ I am a postdoctoral researcher at KTH working on the project "Seamless Indoor–
 If you are interested in the following topics, for collaborations or theses, please reach me out!
 * Unsupervised domain adaptation for robotic perception 
 * Cloud-based robotic perception:
+  * Unsupervised domain adaptation ([ICRA paper](https://https//doi.org/10.48550/arXiv.2602.01389))
   * Scalability of domain adaptation ([IROS paper](https://doi.org/10.1109/IROS58592.2024.10802847))
   * Privacy preservation  ([TRO paper](https://doi.org/10.1109/TRO.2025.3613551))
 
