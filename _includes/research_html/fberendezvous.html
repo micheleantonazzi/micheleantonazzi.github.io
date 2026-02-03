@@ -1,0 +1,244 @@
+<!--<link href='https://fonts.googleapis.com/css?family=Crimson Text' rel='stylesheet'>-->
+<script>
+    function startVideos(){const videoOne = document.getElementById("videoOne");
+        const videoTwo = document.getElementById("videoTwo");
+
+        videoOne.play();
+        videoTwo.play();
+
+    }
+
+
+</script>
+
+<div class="project-container">
+
+    <div class="row mb-lg-4 mb-md-3 mb-3" onload="startVideos()">
+        <div class="col-md-6 col-xs-8" >
+            <h4>FBE-BT (our)</h4>
+            <video autoplay muted playsinline loop width="100%">
+                <source src="/assets/video/projects/fberendezvous/exp_2_fbr.mp4" type="video/mp4" >
+            </video>
+        </div>
+        <div class="col-md-6 col-xs-8">
+            <h4>FBE 3X</h4>
+            <video autoplay muted playsinline loop width="100%">
+                <source src="/assets/video/projects/fberendezvous/exp_2_fbe.mp4" type="video/mp4" >
+            </video>
+        </div>
+    </div>
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2 >Abstract</h2>
+            <p class="text">
+                The multi-robot rendezvous problem requires
+                coordinating a team of mobile robots to converge at
+                a common location. Efficient decentralized execution
+                with limited communication and in unknown environments can be essential in several applications, but such
+                real-world robotic features are often not captured by
+                theoretical rendezvous frameworks. In this work, we
+                present an approach to this problem that extends traditional frontier-based exploration strategies to facilitate
+                efficient rendezvous in such conditions. Our method allows robots to backtrack their exploration of the
+                environment and exploit semantic knowledge on the map by
+                prioritizing high-connectivity areas like corridors and
+                hallways. We define and evaluate different variants of
+                our method to study a trade-off between the time taken
+                to perform a rendezvous and the amount of discovered
+                area in the environment. Extensive experimental evaluation in ROS using 3D simulations demonstrates the
+                feasibility of our method and its performance improvements over baselines.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2 >Scenario</h2>
+            <p class="text">
+                We consider the rendezvous problem for a
+                team of autonomous mobile robots in the challenging setting
+                of a communication-restricted and initially unknown
+                indoor environment. We assume that the robots start from
+                different arbitrary locations, but no map of the environment
+                is available to any of them and no pre-determined meeting
+                location or coordination strategy has been agreed upon. The
+                communication in the environment is restricted to occur only
+                after a rendezvous.
+            </p>
+            <div class="row">
+                <div class="col">
+                    <img src="/assets/img/projects/fberedezvous/range.png">
+                    <p class="image-caption">Minimum range constraint.</p>
+                </div>
+                <div class="col">
+                    <img src="/assets/img/projects/fberedezvous/lineofsight.png" >
+                    <p class="image-caption">Line of sight.</p>
+                </div>
+            </div>
+            <p class="text">
+                The difficulty of the rendezvous problem is
+                augmented by the fact that the MRS needs to simultaneously
+                perform an online exploration task, as the environment
+                is unknown. The widely used <b>frontier-based exploration</b> strategy is in contrast with what is required by
+                an efficient rendezvous, which, in principle, does not strictly
+                require building a complete map.
+
+            </p>
+            <div class="row">
+                <div class="col">
+                    <h4>Exploration</h4>
+                    <video autoplay muted playsinline loop width="100%">
+                        <source src="/assets/video/projects/fberendezvous/exploration.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="col">
+                    <h4>Rendezvous</h4>
+                    <video autoplay muted playsinline loop width="100%">
+                        <source src="/assets/video/projects/fberendezvous/rendezvous3.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2>Method</h2>
+
+            <p class="text">
+                We propose an extension of the classical Frontier-Based Exploration (<b>FBE</b>) biased towards Rendezvous (hence the acronym <b>FBR</b>).
+                Frontiers are created not
+                only for their potential contribution to the map's expansion
+                but also to increase the
+                opportunity of meeting a teammate. To do so, we introduce
+                an <b>exploration trace</b> with an information decay mechanism
+                that allows each robot to forget about parts
+                of the environment that have been explored and mapped, creating <b>hallucinated frontiers</b>.
+                In this way, the robot
+                is encouraged to backtrack on previously explored areas facilitating accidental rendezvous.
+                When robot meet, they from a cluster merging their exploration trace and sharing the frontiers.
+                When a new cluster is formed, the leader continue the exploration strategy with hallucinated frontiers,
+                while the other members are followers. The rendezvous is completed when all robots are inside the same cluster.
+            </p>
+            <div class="row mt-3">
+                <div class="col">
+                    <video autoplay muted playsinline loop width="100%">
+                        <source src="/assets/video/projects/fberendezvous/frontiers.mp4" type="video/mp4">
+                    </video>
+                    <p class="image-caption">A robot navigating with its exploration trace (in red). Frontiers for exploration and rendezvous (hallucinated) are in blue and green.</p>
+                </div>
+                <div class="col">
+
+                    <video autoplay muted playsinline loop width="100%">
+                        <source src="/assets/video/projects/fberendezvous/sharing.mp4" type="video/mp4">
+                    </video>
+                    <p class="image-caption">Frontier sharing when two robots join a cluster.</p>
+
+                </div>
+            </div>
+            <p class="text">
+                To further increase the chance to complete a rendezvous, we assume the robot is able
+                to distinguish high-connectivity areas (such as hallways or corridors) of the environment from peripheric ones (like small rooms or offices).
+                Assuming this capability, we propose an extension of the standard utility function used for frontier selection, in which
+                frontiers in high-connectivity areas have increased importance.
+            </p>
+            <div class="row">
+                <div class="col">
+                    <img src="/assets/img/projects/fberedezvous/office_2_sem.png" class="img-fluid">
+                    <p class="image-caption">High-connectivity area (highlighted in pink).</p>
+
+                </div>
+                <div class="col">
+                    <img src="/assets/img/projects/fberedezvous/office_big_sem.png" class="img-fluid" >
+                    <p class="image-caption">High-connectivity area (highlighted in pink).</p>
+                </div>
+
+
+                </div>
+        </div>
+    </div>
+
+
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2>Experiments</h2>
+            <p class="text">
+                We validate our approach with an extensive experimental campaign in realistic simulations.
+                In our experiments, we perform real-time runs with a Turtlebot-3 burger exploring large environments simulated with Gazebo.
+                The results demonstrate that our method encourages the robots to backtrack on previously-visited location,
+                facilitating accidental rendezvous. More specifically, adding the backtracking to the standard frontier-based exploration
+                increase the rendezvous of approx. 40%, an improvement that is also enhanced considering also the high-connectivity areas while choosing the next location.
+
+
+            </p>
+            <div class="row">
+                <div class="col">
+                    <h4>FBE-BT (our)</h4>
+                    <video autoplay muted playsinline loop width="100%">
+                        <source src="/assets/video/projects/fberendezvous/exp_1_fbr.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="col">
+                    <h4>FBE 2X</h4>
+                    <video autoplay muted playsinline loop width="100%">
+                        <source src="/assets/video/projects/fberendezvous/exp_1_fbe.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+            <p class="text text-center mt-3" >
+                Rendezvous paths obtained with our method with backtracking (FBE-BT - first row) and the baseline (FBE - second row) in a series of environments.
+            </p>
+            <img src="/assets/img/projects/fberedezvous/grid.jpg" style="width: 100%">
+            <p class="text text-center mt-3" >
+                Comparison between the standard frontier-based exploration (FBE - first row), our method with backtracking (FBE-BT - middle row),
+                and its extension considering high-connectivity area (FBE-BT-A - last row). The time to perfom the rendezvous and the area covered by the robots
+                are labeled with <i>t</i> and <i>a</i>, respectively.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2>BibTex</h2>
+            <div class="language-html highlighter-rouge">
+                <div class="highlight">
+            <div class="code-display-wrapper">
+           <pre class="highlight">
+            <code><p style="text-align: justify; font-size: 1em;">@article{LUPERTO2025105137,
+    title = {Multi-robot rendezvous in communication-restricted unknown environments via backtracking and semantic frontier-based exploration},
+    journal = {Robotics and Autonomous Systems},
+    pages = {105137},
+    year = {2025},
+    issn = {0921-8890},
+    doi = {https://doi.org/10.1016/j.robot.2025.105137},
+    url = {https://www.sciencedirect.com/science/article/pii/S0921889025002349},
+    author = {Matteo Luperto and Mauro Tellaroli and Michele Antonazzi and Nicola Basilico},
+}
+@INPROCEEDINGS{10801321,
+    author={Tellaroli, Mauro and Luperto, Matteo and Antonazzi, Michele and Basilico, Nicola},
+    booktitle={2024 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+    title={Frontier-Based Exploration for Multi-Robot Rendezvous in Communication-Restricted Unknown Environments},
+    year={2024},
+    volume={},
+    number={},
+    pages={5807-5812},
+    doi={10.1109/IROS58592.2024.10801321}
+}
+            </p></code>
+        </pre>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
