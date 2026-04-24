@@ -1,0 +1,81 @@
+
+<!--<link href='https://fonts.googleapis.com/css?family=Crimson Text' rel='stylesheet'>-->
+
+
+<div class="project-container">
+
+    
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2 >Introduction</h2>
+            <p class="text">
+In recent years, open-vocabulary semantic segmentation (OVSS) has become extremely popular  as it enables a robot to detect objects from textual prompts without requiring a predefined set of class lables. This task is performed by modern visual foundation models (e.g., SED or CATSeg) based on CLIP. Despite their great potential and generalization capabilities, these models are affected by the well-known <i>domain shift</i> when deployed on mobile robots.
+It occurs when the training and test data distributions differ, causing performance degradation.
+Sensor noise, varying illumination conditions and small objects with peculiar textures and visual aspects can easily produce ambiguities and misclassifications as they may be underrepresented in common internet-scale datasets used for training contrastive foundational models such as CLIP.
+Unsupervised domain adaptation is a relevant paradigm as it mitigates domain shift by fine-tuning the model using robot data without
+relying on ground-truth labels or humans in the loop. Despite promising, these approaches have been rarely applied to OVSS.            </p>
+        
+<img src="/assets/img/projects/ov_uda_mapping/3d-instance-uda.png" style="width: 100%;">
+             <p class="image-caption"> The general overview of the unsupervised domain adaptation pipeline for open-vocabulary semantic segmentation.</p>
+</div>
+
+    </div>
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2 >Goal of the project</h2>
+            <p class="text">
+                The goal of the project is to design, implement, and validate a self-supervised domain adaptation pipeline for OVSS of robotic data (see the figure for a general overview), that can be
+seen as an extension of <a href="/research/instanceuda"> this published work</a>. From a stream of robotic perceptions (RGB images and depth
+data) acquired in an environment, use an open-vocabulary segmentation module to produce
+self-supervised pseudo-labels. In standard domain adaptation, pseudo-labels refer to labels
+(i.e., predictions) produced by the model, but in OVSS, they are typically represented as
+high-dimensional feature vectors. Due to noise and inaccuracies, these pseudo-labels cannot be directly used for self-supervision. To improve their quality, the pseudo-labels can be
+spatially aggregated using an existing 3D open-vocabulary mapping framework to obtain an
+accurate instance-level semantic representation of the environment. The last step consists of
+querying the map (i.e., back-project 3D views into the image space) to obtain more reliable
+pseudo-labels to fine-tune the model for performance improvement.
+The schedule of the activities can be roughly organized as follows (ongoing adjustments
+are possible):
+<ul>
+    <li>Literature review of UDA for semantic segmentation</li>
+    <li>Download and setup the datasets to use for the development (e.g., Scannet++)</li>
+    <li>Run an OVSS model (such as SED) to measure performance to have a first baseline</li>
+    <li>Identify the main sources of errors and limitations of the baseline to improve during
+the project development</li>
+<li>Setup the mapping framework to obtain 3D semantic maps from robot perceptions
+and identify what kind of supervision signal we want to obtain from the map (object
+categories, feature embeddings, dense category masks, etc, ...)</li>    
+<li>Modify, improve, and extend the mapping framework to query the map and obtain the
+supervision signal (ray-tracing algorithm)</li>
+<li>Obtain the pseudo-labels, fine-tune the model, and quantify the performance improvement</li>
+</ul>
+            </p>
+            
+        </div>
+
+    </div>
+
+<div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2 >Additional information</h2>
+            <p class="text" style="text-align: justify;">
+<ul>
+    <li><b>Starting date:</b> ASAP</li>
+    <li><b>What we expect:</b> good programming skills (C++ and Python), proven experience with
+deep-learning frameworks (PyTorch), good problem-solving skills</li>
+    <li><b>What you will gain:</b> deep knowledge of domain adaptation techniques, practical experience in working and extending a state-of-the-art mapping framework for robotics, possibility
+to use real robotic platforms, opportunity to publish obtained results in a scientific paper</li>
+<li><b>Contacts:</b> Michele Antonazzi (micant@kth.se), Timon Homberger (timonh@kth.se)</li>
+</ul>
+                
+            </p>
+            
+        </div>
+
+    </div>
+
+
+
+</div>

@@ -9,4 +9,6 @@ children:
     permalink: /publications/
   - title: Published projects
     permalink: /research/
+  - title: Open projects
+    permalink: /projects/
 ---
