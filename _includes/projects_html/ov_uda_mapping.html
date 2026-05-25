@@ -32,7 +32,7 @@ data) acquired in an environment, use an open-vocabulary segmentation module to 
 self-supervised pseudo-labels. In standard domain adaptation, pseudo-labels refer to labels
 (i.e., predictions) produced by the model, but in OVSS, they are typically represented as
 high-dimensional feature vectors. Due to noise and inaccuracies, these pseudo-labels cannot be directly used for self-supervision. To improve their quality, the pseudo-labels can be
-spatially aggregated using an existing 3D open-vocabulary mapping framework to obtain an
+spatially aggregated using an existing 3D open-vocabulary mapping framework (<a href="https://arxiv.org/abs/2605.03669">FUS3DMaps</a>) to obtain an
 accurate instance-level semantic representation of the environment. The last step consists of
 querying the map (i.e., back-project 3D views into the image space) to obtain more reliable
 pseudo-labels to fine-tune the model for performance improvement.
@@ -44,7 +44,7 @@ are possible):
     <li>Run an OVSS model (such as SED) to measure performance to have a first baseline</li>
     <li>Identify the main sources of errors and limitations of the baseline to improve during
 the project development</li>
-<li>Setup the mapping framework to obtain 3D semantic maps from robot perceptions
+<li>Setup the <a href="https://arxiv.org/abs/2605.03669">FUS3DMaps</a> to obtain 3D semantic maps from robot perceptions
 and identify what kind of supervision signal we want to obtain from the map (object
 categories, feature embeddings, dense category masks, etc, ...)</li>    
 <li>Modify, improve, and extend the mapping framework to query the map and obtain the
