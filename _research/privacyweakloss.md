@@ -22,6 +22,9 @@ toggles:
     - icon: fa-brands fa-github
       link: https://github.com/aislabunimi/privacy.aware.od.git
       text: Code
+    - icon: fa-regular fa-newspaper
+      link: /assets/pdf/ICRA_2026_T-RO-privacy-Poster.pdf
+      text: Poster  
 ---
 
 {% include research_html/privacyweakloss.html %}

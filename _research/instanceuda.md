@@ -19,6 +19,9 @@ toggles:
       - icon: fa-brands fa-github
         link: https://github.com/aislabunimi/instance-aware-uda
         text: Code 
+      - icon: fa-regular fa-newspaper
+        link: /assets/pdf/ICRA-2026-UDA-Poster.pdf
+        text: Poster   
 ---
 
 {% include research_html/instance_uda.html %}
