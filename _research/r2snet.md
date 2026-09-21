@@ -8,6 +8,9 @@ description: >
 img: assets/img/projects/r2snet/intro.png
 importance: 3
 category: Robotics
+bibtex_keys:
+  - antonazzi2024r2snet
+video: 3sb5DB1kjKM
 related_publications: true
 authors: >
   Michele Antonazzi, Matteo Luperto, N. Alberto Borghese, Nicola Basilico

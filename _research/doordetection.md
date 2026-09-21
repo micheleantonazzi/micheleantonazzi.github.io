@@ -9,6 +9,10 @@ description: >
 img: assets/img/projects/door_detection/intro.png
 importance: 1
 category: Robotics
+bibtex_keys:
+  - antonazzi2025development
+  - antonazzi2023enhancing
+video: v0p_AzOL4pY
 related_publications: true
 authors: >
   Michele Antonazzi, Matteo Luperto, N. Alberto Borghese, Nicola Basilico

@@ -8,6 +8,9 @@ description: >
 img: assets/img/projects/instance_uda/method_overview.jpg
 importance: 5
 category: Robotics
+bibtex_keys:
+  - antonazzi2026instanceuda
+video: Mzszs0c5aWI
 related_publications: true
 authors: >
   Michele Antonazzi, Lorenzo Signorelli, Matteo Luperto, Nicola Basilico

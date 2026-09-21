@@ -11,6 +11,9 @@ description: >
 img: assets/img/projects/privacy_weak_loss/scenario.png
 importance: 4
 category: Robotics
+bibtex_keys:
+  - antonazzi2025privacyweakloss
+video: B7vHp2jugbo
 related_publications: true
 authors: >
   Michele Antonazzi, Matteo Alberti, Alex Bassot, Matteo Luperto, Nicola Basilico

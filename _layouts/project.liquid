@@ -2,6 +2,16 @@
 layout: default
 ---
 
+{% if page.video %}
+  {% assign video_src = page.video | strip %}
+  {% assign video_ext = video_src | split: '.' | last | downcase %}
+  {% if video_ext == 'mp4' or video_ext == 'webm' or video_ext == 'ogg' %}
+    {% assign video_is_local = true %}
+  {% else %}
+    {% assign video_is_local = false %}
+  {% endif %}
+{% endif %}
+
 <div class="container-title project">
     <div class="container shadoww p-lg-5 p-md-5 p-sm-4 p-4">
         <div class="post">
@@ -26,10 +36,81 @@ layout: default
                       </p>
                       </div>
                   {% endfor %}
+                  {% if page.video and forloop.last %}
+                      <div class="col-auto" style="padding-left: 0.3em; padding-right: 0.3em; padding-top: 1em; padding-bottom: 0;">
+                      <p><a href="#" class="button-external project-video-toggle" role="button" aria-expanded="false" aria-controls="project-video">
+                          <i class="{% if video_is_local %}fa-solid fa-circle-play{% else %}fa-brands fa-youtube{% endif %}"></i> Video
+                      </a>
+                      </p>
+                      </div>
+                      {% assign video_button_done = true %}
+                  {% endif %}
               </div>
 
 
                   {% endfor %}
+
+                  {% if page.video %}
+                    {% unless video_button_done %}
+                      <div class="row justify-content-center">
+                      <div class="col-auto" style="padding-left: 0.3em; padding-right: 0.3em; padding-top: 1em; padding-bottom: 0;">
+                      <p><a href="#" class="button-external project-video-toggle" role="button" aria-expanded="false" aria-controls="project-video">
+                          <i class="{% if video_is_local %}fa-solid fa-circle-play{% else %}fa-brands fa-youtube{% endif %}"></i> Video
+                      </a>
+                      </p>
+                      </div>
+                      </div>
+                    {% endunless %}
+
+                    <div class="row justify-content-center">
+                      <div class="col-12 col-lg-9 project-video" id="project-video">
+                        {% if video_is_local %}
+                          {% if video_src contains '://' or video_src contains '/' %}
+                            {% assign video_path = video_src %}
+                          {% else %}
+                            {% assign video_path = video_src | prepend: '/assets/video/' %}
+                          {% endif %}
+                          {% include video.liquid path=video_path class="img-fluid rounded z-depth-1" controls=true %}
+                        {% else %}
+                          {% assign yt_id = video_src %}
+                          {% if yt_id contains 'youtu.be/' %}
+                            {% assign yt_id = yt_id | split: 'youtu.be/' | last %}
+                          {% elsif yt_id contains '/embed/' %}
+                            {% assign yt_id = yt_id | split: '/embed/' | last %}
+                          {% elsif yt_id contains 'v=' %}
+                            {% assign yt_id = yt_id | split: 'v=' | last %}
+                          {% endif %}
+                          {% assign yt_id = yt_id | split: '&' | first | split: '?' | first %}
+                          <iframe
+                            class="project-video-frame"
+                            data-src="https://www.youtube.com/embed/{{ yt_id }}?rel=0"
+                            title="{{ page.title | strip_newlines | strip }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen
+                          ></iframe>
+                        {% endif %}
+                      </div>
+                    </div>
+
+                    <script>
+                      document.addEventListener("DOMContentLoaded", function () {
+                        var toggle = document.querySelector("a.project-video-toggle");
+                        var player = document.getElementById("project-video");
+                        if (!toggle || !player) return;
+                        toggle.addEventListener("click", function (event) {
+                          event.preventDefault();
+                          var opened = player.classList.toggle("open");
+                          toggle.setAttribute("aria-expanded", opened);
+                          // load the YouTube player only the first time the button is pressed
+                          var frame = player.querySelector("iframe[data-src]");
+                          if (opened && frame && !frame.src) {
+                            frame.src = frame.dataset.src;
+                          }
+                        });
+                      });
+                    </script>
+                  {% endif %}
 
 
 
@@ -45,6 +126,19 @@ layout: default
   <article>
     {{ content }}
   </article>
+
+  {% if page.bibtex_keys %}
+    <div class="project-container project-bibtex">
+      <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col">
+          <h2>BibTeX</h2>
+          {% for bibtex_key in page.bibtex_keys %}
+            {% bibliography --query @*[key={{ bibtex_key }}] --template bibtex_only --group_by none %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
 
 
 </div>
