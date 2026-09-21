@@ -11,19 +11,19 @@
         <div class="row">
         <div class="col-md-4 col-xs-6" >
             <h5>Original Robot Stream</h5>
-            <video  muted loop style="width: 100%" id="videoOne">
+            <video  muted loop style="width: 100%" id="videoOne" data-video-sync="privacy" playsinline>
                 <source src="/assets/video/projects/privacy_weak_loss/tasknet.mp4" type="video/mp4">
             </video>
         </div>
         <div class="col-md-4 col-xs-6">
             <h5>Obfuscation</h5>
-            <video  muted loop style="width: 100%" id="videoTwo">
+            <video  muted loop style="width: 100%" id="videoTwo" data-video-sync="privacy" playsinline>
                 <source src="/assets/video/projects/privacy_weak_loss/2pos2neg.mp4" type="video/mp4">
             </video>
         </div>
         <div class="col-md-4 col-xs-6">
             <h5>Attacker Reconstruction</h5>
-            <video  muted loop style="width: 100%" id="videoThree">
+            <video  muted loop style="width: 100%" id="videoThree" data-video-sync="privacy" playsinline>
                 <source src="/assets/video/projects/privacy_weak_loss/2pos2neg_bw.mp4" type="video/mp4">
             </video>
         </div>
@@ -34,54 +34,22 @@
         <div class="row">
         <div class="col-md-4 col-xs-6" >
             <h5>Original Robot Stream</h5>
-            <video  muted loop style="width: 100%" id="videoFour">
+            <video  muted loop style="width: 100%" id="videoFour" data-video-sync="privacy" playsinline>
                 <source src="/assets/video/projects/privacy_weak_loss/tasknet.mp4" type="video/mp4">
             </video>
         </div>
         <div class="col-md-4 col-xs-6">
             <h5>Obfuscation</h5>
-            <video  muted loop style="width: 100%" id="videoFive">
+            <video  muted loop style="width: 100%" id="videoFive" data-video-sync="privacy" playsinline>
                 <source src="/assets/video/projects/privacy_weak_loss/all_prop_fw.mp4" type="video/mp4">
             </video>
         </div>
         <div class="col-md-4 col-xs-6">
             <h5>Attacker Reconstruction</h5>
-            <video  muted loop style="width: 100%" id="videoSix">
+            <video  muted loop style="width: 100%" id="videoSix" data-video-sync="privacy" playsinline>
                 <source src="/assets/video/projects/privacy_weak_loss/all_prop_bw.mp4" type="video/mp4">
             </video>
         </div>
-        <script>
-            videos = [document.getElementById("videoOne"), document.getElementById("videoTwo"),document.getElementById("videoThree"),
-                document.getElementById("videoFour"), document.getElementById("videoFive"),document.getElementById("videoSix")]
-            var promise = new Promise(function(resolve) {
-                var loaded = 0;
-
-                videos.forEach(function(v) {
-                    v.addEventListener('canplaythrough', function() {
-                        loaded++;
-
-                        if (loaded === videos.length) {
-                            resolve();
-                        }
-                    });
-                });
-            });
-
-            // Play all videos one by one only when all videos are ready to be played.
-            promise.then(function() {
-                videos.forEach(function(v) {
-                    v.play();
-                });
-                setInterval(()=>{
-                    for (let i = 1; i < videos.length; i++) {
-                        videos[i].currentTime = videos[0].currentTime;
-
-                    }
-                },10000);
-            });
-
-
-        </script>
         </div>
     </div>
 
