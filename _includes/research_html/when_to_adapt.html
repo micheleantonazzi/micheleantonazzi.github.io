@@ -1,0 +1,146 @@
+
+<div class="project-container">
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2 >Abstract</h2>
+            <p class="text">
+Robust and reliable perception is essential for autonomous robots operating in real-world environments, particularly in long-term missions where environmental conditions may change significantly over time. Although recent advances in Visual Foundation Models (VFMs) have improved open-vocabulary semantic segmentation, these models can still suffer from domain shift, which can significantly degrade performance if they are not adapted to the current environment. Training-free domain adaptation is a relevant paradigm for adaptation, consisting of adjusting the model online using lightweight adapters. Recent approaches apply this on a per-frame basis, which is impractical for deployments on resource-constrained robotic hardware. To tackle this, we propose a multi-signal domain shift detection method for training-free continual test-time adaptation (TF-CTTA) in open-vocabulary segmentation. Our method leverages temporal coherence across consecutive frames by monitoring and combining complementary aspects of domain shift (visual change, adapter mismatch, and semantic drift) to trigger adaptation only when needed. We validate our approach on a benchmark including indoor and outdoor environments and using real robotic data. We demonstrate that our approach maintains segmentation accuracy while substantially reducing adaptations, making training-free adaptation practical and feasible for long-term, real-world robotic deployments.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2 >Scenario</h2>
+            <p class="text">
+                Robots performing long-term missions, such as last-mile delivery or mobile assistance, move across multiple and
+                changing environments: indoor and outdoor scenarios, new buildings, and varying illumination and weather.
+                This variability generates <i>domain shift</i>, which degrades the performance of open-vocabulary segmentation
+                models if they are not adapted to the current environment. Training-free adaptation methods such as SemLA
+                adjust the model online by retrieving and merging low-rank adapters from a library, without any backpropagation.
+                However, they perform this operation at every frame, introducing a substantial runtime overhead on
+                resource-constrained robotic hardware. Since the images perceived by a robot are highly correlated in time,
+                we instead detect domain shifts in the image stream and trigger adaptation only when needed.
+            </p>
+            <img src="/assets/img/projects/when_to_adapt/intro.jpg" style="width: 100%;">
+             <p class="image-caption">Our domain shift detector monitors three complementary signals (visual change, adapter mismatch,
+                and semantic drift) to decide when it is worth swapping the adapters loaded into the segmentation model.</p>
+        </div>
+
+    </div>
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2>Method</h2>
+                <p class="text">
+Our framework builds on SemLA, a library \(\mathcal{L}\) of LoRA adapters, each indexed by a descriptor \(C_s\) computed as the
+average CLIP embedding of its training domain. When adaptation is triggered, the top-\(K\) adapters closest to the current domain
+are merged and attached to the open-vocabulary segmentation model. Our domain shift detector decides when to adapt by monitoring
+three signals that capture complementary aspects of domain shift:
+                </p>
+                <ul class="text" style="text-align: left;">
+                    <li><b>Visual change (\(S_1\))</b>: has the environment changed visually? It tracks the trend of the
+                        cosine distance between the CLIP embedding of each frame and an exponential moving average of past
+                        embeddings, firing when a sharp increase is followed by a stabilization.</li>
+                    <li><b>Adapter mismatch (\(S_2\))</b>: do the active adapters still match the current domain? It measures
+                        how far the current domain has moved from the loaded adapters' descriptors, relative to the distance
+                        measured right after the last adaptation.</li>
+                    <li><b>Semantic drift (\(S_3\))</b>: has the semantic content changed? It compares the classes predicted by
+                        the model with a memory of the semantic contexts seen at past adaptations, detecting both embedding
+                        drift and novel object categories.</li>
+                </ul>
+                <p class="text">
+The signals are combined with a hierarchical fusion. Since \(S_1\) is highly sensitive, when it fires a confirmation from
+\(S_2\) or \(S_3\) is required; when there is no abrupt visual change, both \(S_2\) and \(S_3\) must agree. The signals
+operate on the CLIP embeddings and predictions already available in the pipeline, so they add no model inference.
+                </p>
+            <img src="/assets/img/projects/when_to_adapt/method_overview.jpg" style="width: 100%;">
+             <p class="image-caption">Overview of the framework for training-free continual test-time adaptation, integrating SemLA
+                and our multi-signal domain shift detector.</p>
+        </div>
+
+    </div>
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2>Experiments</h2>
+            <p class="text">
+                We design a continual test-time adaptation benchmark tailored to robotics, with sequences of 16 domains alternating
+                indoor (Scannet, Scannet++) and outdoor (ACDC, MUSES) scenes. The model is always tested on unseen domains,
+                as the adapter trained on the current domain is discarded. Results are averaged over 50 randomly sampled sequences.
+                Our method stays within 1.4 mIoU of per-frame adaptation while triggering adaptation only 0.8% of the time,
+                and outperforms the other domain shift detection strategies.
+            </p>
+            <div class="table-responsive" style="max-width: 36rem; margin: 1.5rem auto 0;">
+                <table class="table table-sm">
+                    <thead>
+                        <tr><th style="text-align: left;">Method</th><th>mIoU &uarr;</th><th>N<sub>A</sub> &darr;</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="text-align: left;">Zero-shot</td><td>38.6</td><td>0</td></tr>
+                        <tr><td style="text-align: left;">Entropy</td><td>38.4</td><td>0.3</td></tr>
+                        <tr><td style="text-align: left;">DSS</td><td>41.8</td><td>0.5</td></tr>
+                        <tr><td style="text-align: left;">Periodic</td><td>43.9</td><td>4.3</td></tr>
+                        <tr><td style="text-align: left;"><b>Multi-signal (ours)</b></td><td><b>44.8</b></td><td>3.9</td></tr>
+                        <tr><td style="text-align: left;">Per-frame (SemLA)</td><td>46.2</td><td>518</td></tr>
+                    </tbody>
+                </table>
+            </div>
+             <p class="image-caption">Mean segmentation accuracy (mIoU) and number of adaptations per domain (N<sub>A</sub>) across
+                sequences of 16 indoor and outdoor domains. Per-frame adaptation represents the accuracy upper bound.</p>
+
+            <h4>Signal analysis</h4>
+            <p class="text">
+                Individually, the signals are sensitive: \(S_1\) and \(S_3\) trigger frequently, while \(S_2\) barely fires, as
+                adapter mismatch builds gradually. Combined, they are jointly selective, discarding spurious triggers while
+                preserving detection coverage. The full system achieves the best trade-off between accuracy and number of adaptations.
+            </p>
+            <img src="/assets/img/projects/when_to_adapt/signal_tradeoff.png" style="width: 60%;">
+             <p class="image-caption">Trade-off between segmentation accuracy and number of adaptations for the individual signals and
+                their combinations, averaged over 50 sequences of 8 domains each.</p>
+
+            <h4>Latency on robotic hardware</h4>
+            <p class="text">
+                We profile the pipeline on an NVIDIA Jetson AGX Orin mounted on a Spot robot. Adaptation is the bottleneck:
+                each adapter swap takes 550&ndash;700ms, more than CLIP and segmentation inference combined in most configurations.
+                Triggering adaptation only when needed raises the throughput up to 3.2&times; compared to per-frame adaptation.
+            </p>
+            <div class="table-responsive" style="max-width: 44rem; margin: 1.5rem auto 0;">
+                <table class="table table-sm">
+                    <thead>
+                        <tr><th>Power mode</th><th>Models</th><th>Domain nav.</th><th>Seg. model</th><th>Adapt. cost</th><th>FPS (per-frame)</th><th>FPS (ours)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td rowspan="2" style="vertical-align: middle;">High (60W)</td><td>Large</td><td>150ms</td><td>230ms</td><td>550ms</td><td>1.1</td><td><b>2.6</b></td></tr>
+                        <tr><td>Small</td><td>90ms</td><td>140ms</td><td>550ms</td><td>1.3</td><td><b>4.2</b></td></tr>
+                        <tr><td rowspan="2" style="vertical-align: middle;">Low (30W)</td><td>Large</td><td>350ms</td><td>840ms</td><td>700ms</td><td>0.5</td><td><b>0.8</b></td></tr>
+                        <tr><td>Small</td><td>110ms</td><td>490ms</td><td>700ms</td><td>0.7</td><td><b>1.7</b></td></tr>
+                    </tbody>
+                </table>
+            </div>
+             <p class="image-caption">Per-component latency and throughput of per-frame adaptation and our triggered adaptation
+                (N<sub>A</sub> = 4) on a Jetson AGX Orin.</p>
+        </div>
+
+    </div>
+
+    <div class="row mb-lg-4 mb-md-3 mb-3">
+        <div class="col" >
+            <h2>Real-world deployment</h2>
+            <p class="text">
+                We deploy our method on a real-world sequence of 2735 frames captured with an Odin sensor while navigating indoor and
+                outdoor areas of the KTH campus. The visual change signal fires 42 times, but the hierarchical fusion confirms only 12
+                adaptations, rejecting 71% of the activations as false positives. The confirmed adaptations correspond to visually
+                distinct domain transitions: corridor changes, indoor-to-outdoor passages, and room type shifts. On the Jetson,
+                these 12 adaptations add only 7s of overhead, compared to 25 minutes under per-frame adaptation.
+            </p>
+            <img src="/assets/img/projects/when_to_adapt/real_world.jpg" style="width: 100%;">
+             <p class="image-caption">Our domain shift detector on a real-world indoor/outdoor sequence. Each image pair covers
+                consecutive adaptation events: the first frame is where adaptation is triggered, the second is from the stable period
+                before the next trigger.</p>
+        </div>
+
+    </div>
+</div>
