@@ -17,11 +17,11 @@ related_publications: true
 authors: >
   Michele Antonazzi<sup>*</sup>, Alejandra C. Hernandez<sup>*</sup>, José Araujo, Olov Andersson, Patric Jensfelt
   <br><small><sup>*</sup> Equal contribution</small>
-# toggles:
-#   -
-#       - icon: fa fa-file-pdf
-#         link: https://doi.org/10.48550/arXiv.XXXX.XXXXX
-#         text: arXiv paper
+toggles:
+  -
+      - icon: fa fa-file-pdf
+        link: https://doi.org/10.48550/arXiv.2609.37602
+        text: arXiv paper
 ---
 
 {% include research_html/when_to_adapt.html %}
