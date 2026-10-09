@@ -17,6 +17,9 @@ authors: >
 toggles:
   -
       - icon: fa fa-file-pdf
+        link: https://doi.org/10.1109/ICRA57385.2026.11696768
+        text: ICRA paper
+      - icon: fa fa-file-pdf
         link: https://doi.org/10.48550/arXiv.2602.01389
         text: arXiv paper
       - icon: fa-brands fa-github
